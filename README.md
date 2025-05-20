@@ -1,5 +1,7 @@
 # Remote MCP Server on Cloudflare
 
+![National Grid](Cover.png)
+
 Let's get a remote MCP server up-and-running on Cloudflare Workers complete with OAuth login!
 
 ## Develop locally

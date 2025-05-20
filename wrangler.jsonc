@@ -10,14 +10,14 @@
 	"compatibility_flags": ["nodejs_compat"],
 	"migrations": [
 		{
-			"new_sqlite_classes": ["MyMCP"],
+			"new_sqlite_classes": ["HappyDanceUmbracoMCP"],
 			"tag": "v1"
 		}
 	],
 	"durable_objects": {
 		"bindings": [
 			{
-				"class_name": "MyMCP",
+				"class_name": "HappyDanceUmbracoMCP",
 				"name": "MCP_OBJECT"
 			}
 		]
@@ -31,5 +31,9 @@
 	"observability": {
 		"enabled": true
 	},
-	"assets": { "directory": "./static/", "binding": "ASSETS" }
+	"assets": { "directory": "./static/", "binding": "ASSETS" },
+	"vars": {
+		"UMBRACO_BASE_URL": "https://happy-dance-umbraco.azurewebsites.net",
+		"UMBRACO_API_KEY": "1234567890"
+	}
 }

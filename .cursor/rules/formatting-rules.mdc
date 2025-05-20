@@ -1,0 +1,84 @@
+---
+description: When returning code this file assists in defining the formatting of said code, where cursor should follow our style
+globs: *.tsx, *.ts, *.js, *.mjs, *.json, *.css
+---
+# Formatting Rules
+
+This document details the formatting rules for the project as defined by our Prettier and ESLint configurations. Following these rules ensures consistency across our codebase.
+
+---
+
+## Prettier Configuration
+
+We use [Prettier](mdc:umbraco-webhook-poc/https:/prettier.io) to enforce code formatting. Our configuration is defined in our `.prettierrc.json` and includes the following rules:
+
+- **No semicolons:** `semi: false`
+- **Single quotes:** `singleQuote: true`
+- **No trailing commas:** `trailingComma: "none"`
+- **Print width:** `printWidth: 680`  
+  This helps maintain readability on large monitors.
+- **Tab width:** `tabWidth: 4`  
+  We prefer a four-space width for uniform tab sizing.
+- **Tabs for indentation:** `useTabs: true`
+- **Concise arrow functions:** `arrowParens: "avoid"`
+- **HTML/JSX attributes formatting:**  
+  - `singleAttributePerLine: false`
+  - `bracketSameLine: false`
+- **Bracket spacing:** `bracketSpacing: true`
+- **Vue file formatting:**  
+  - `vueIndentScriptAndStyle: true`
+- **Tailwind CSS classes sorting:**  
+  We use the plugin `prettier-plugin-tailwindcss` to automatically sort Tailwind CSS classes.
+
+A representative Prettier configuration snippet from our project:
+
+```json
+{
+	"semi": false,
+	"singleQuote": true,
+	"trailingComma": "none",
+	"printWidth": 680,
+	"tabWidth": 4,
+	"useTabs": true,
+	"arrowParens": "avoid",
+	"singleAttributePerLine": false,
+	"bracketSameLine": false,
+	"bracketSpacing": true,
+	"vueIndentScriptAndStyle": true,
+	"plugins": [
+		"prettier-plugin-tailwindcss"
+	]
+}
+```
+
+---
+
+## ESLint Configuration
+
+Our project leverages [ESLint](mdc:umbraco-webhook-poc/https:/eslint.org) to enforce consistent coding standards and to integrate Prettier within the linting process. Key details include:
+
+- **Prettier integration:**  
+  We use `eslint-config-prettier` to turn off rules that might conflict with Prettier formatting, and `eslint-plugin-prettier` to run Prettier as an ESLint rule.
+- **Code quality:**  
+  Our ESLint rules ensure we use modern JavaScript/TypeScript features (e.g., const arrow functions, named exports) and follow functional programming guidelines.
+- **Vue/React Support (if applicable):**  
+  - For Vue projects, we use `eslint-plugin-vue`.
+  - For React projects (in our Next.js setup) we use appropriate ESLint plugins, ensuring no JSX or React-style syntax is inadvertently introduced in server components.
+- **Linting commands:**  
+  - Use `npm run lint` to check for errors.
+  - Use `npm run lint:fix` to automatically fix issues.
+
+By adhering to our ESLint configuration, we ensure that both code style and potential errors are caught early in the development process.
+
+---
+
+## Pre-commit and CI Integration
+
+- **Pre-commit Hooks:**  
+  We enforce formatting rules via pre-commit hooks to run both ESLint and Prettier before changes are committed.
+- **Continuous Integration (CI):**  
+  All pull requests are automatically checked to comply with these configurations, ensuring that no formatting or linting issues enter the main branch.
+
+---
+
+Following these formatting rules allows us to maintain a clean, consistent, and highly readable codebase that adheres to our project's style and quality goals.

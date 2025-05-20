@@ -1,0 +1,74 @@
+---
+description: When asked about the content delivery api or fetching content to build static pages
+globs: *.tsx, *.ts, *.js, *.mjs, *.json, *.css
+---
+# Umbraco Content Delivery API
+
+The Umbraco Content Delivery API provides a way to access content stored in an Umbraco CMS instance. It is designed to be used by front-end applications to fetch content in a structured format. You can find the API documentation for our instance here: https://jobboard.happydance.dev/umbraco/swagger/delivery/swagger.json or locally in /src/lib/umbraco/schema/swagger.json
+
+## API Structure
+
+The Content Delivery API is RESTful and provides endpoints to access different types of content. The API is typically accessed via HTTP requests and returns data in JSON format.
+
+### Base URL
+
+The base URL for accessing the API is typically structured as follows:
+```
+https://<your-umbraco-instance>/umbraco/delivery/api/v2
+```
+
+## Endpoints
+
+### 1. Get Content by ID
+
+- **Endpoint**: `/content/{id}`
+- **Method**: GET
+- **Description**: Fetches a specific content item by its unique identifier.
+- **Example**: `GET /content/1234`
+
+### 2. Get Content by Alias
+
+- **Endpoint**: `/content/alias/{alias}`
+- **Method**: GET
+- **Description**: Retrieves content items that match a specific alias.
+- **Example**: `GET /content/alias/homepage`
+
+### 3. Search Content
+
+- **Endpoint**: `/content/search`
+- **Method**: GET
+- **Description**: Allows searching for content based on query parameters.
+- **Query Parameters**: `q` (search query), `type` (content type)
+- **Example**: `GET /content/search?q=blog&type=article`
+
+### 4. Get Media by ID
+
+- **Endpoint**: `/media/{id}`
+- **Method**: GET
+- **Description**: Fetches a media item by its unique identifier.
+- **Example**: `GET /media/5678`
+
+### 5. Get Media by Alias
+
+- **Endpoint**: `/media/alias/{alias}`
+- **Method**: GET
+- **Description**: Retrieves media items that match a specific alias.
+- **Example**: `GET /media/alias/logo`
+
+## Authentication
+
+The API requires a custom header and API Key found in the .env file and Umbraco Config files
+
+## Error Handling
+
+The API returns standard HTTP status codes to indicate the success or failure of a request. Common status codes include:
+
+- `200 OK`: The request was successful.
+- `404 Not Found`: The requested content or media was not found.
+- `401 Unauthorized`: Authentication is required and has failed or has not yet been provided.
+
+## Conclusion
+
+The Umbraco Content Delivery API is a powerful tool for accessing and managing content in an Umbraco CMS. By utilizing the endpoints provided, developers can efficiently integrate Umbraco content into their applications.
+
+For more detailed information, refer to the [official Umbraco documentation](mdc:umbraco-webhook-poc/umbraco-webhook-poc/umbraco-webhook-poc/umbraco-webhook-poc/umbraco-webhook-poc/https:/docs.umbraco.com/umbraco-cms/13.latest/reference/content-delivery-api). 
