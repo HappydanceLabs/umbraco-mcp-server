@@ -7,11 +7,24 @@
 	"name": "umbraco-mcp-server",
 	"main": "src/index.ts",
 	"compatibility_date": "2025-03-10",
-	"compatibility_flags": ["nodejs_compat"],
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
 	"migrations": [
 		{
-			"new_sqlite_classes": ["HappyDanceUmbracoMCP"],
+			"new_sqlite_classes": [
+				"HappyDanceUmbracoMCP"
+			],
 			"tag": "v1"
+		},
+		{
+			"tag": "v2",
+			"renamed_classes": [
+				{
+					"from": "umbraco-mcp-server_MyMCP",
+					"to": "HappyDanceUmbracoMCP"
+				}
+			]
 		}
 	],
 	"durable_objects": {
