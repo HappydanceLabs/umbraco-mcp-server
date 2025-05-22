@@ -17,7 +17,7 @@
 	"durable_objects": {
 		"bindings": [
 			{
-				"class_name": "HappyDanceUmbracoMCP",
+				"class_name": "umbraco-mcp-server_MyMCP",
 				"name": "MCP_OBJECT"
 			}
 		]
