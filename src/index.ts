@@ -25,6 +25,9 @@ export default {
 		if (url.pathname === '/mcp') {
 			return HappyDanceUmbracoMCP.serve('/mcp').fetch(request, env, ctx)
 		}
+		if (url.pathname === '/sse') {
+			return HappyDanceUmbracoMCP.serve('/sse').fetch(request, env, ctx)
+		}
 		return app.fetch(request, env, ctx)
 	}
 }
