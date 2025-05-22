@@ -1,7 +1,3 @@
-/**
- * For more details on how to configure Wrangler, refer to:
- * https://developers.cloudflare.com/workers/wrangler/configuration/
- */
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "umbraco-mcp-server",
@@ -16,15 +12,6 @@
 				"HappyDanceUmbracoMCP"
 			],
 			"tag": "v1"
-		},
-		{
-			"tag": "v2",
-			"renamed_classes": [
-				{
-					"from": "umbraco-mcp-server_MyMCP",
-					"to": "HappyDanceUmbracoMCP"
-				}
-			]
 		}
 	],
 	"durable_objects": {
