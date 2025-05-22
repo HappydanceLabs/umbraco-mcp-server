@@ -44,15 +44,19 @@ export const getGetContent20Url = (params?: GetContent20Params) => {
 
 	const stringifiedParams = normalizedParams.toString()
 
-	return stringifiedParams.length > 0
-		? `/umbraco/delivery/api/v2/content?${stringifiedParams}`
-		: '/umbraco/delivery/api/v2/content'
+	const url =
+		stringifiedParams.length > 0
+			? `/umbraco/delivery/api/v2/content?${stringifiedParams}`
+			: '/umbraco/delivery/api/v2/content'
+
+	return url
 }
 
 export const getContent20 = async (
 	params?: GetContent20Params,
 	options?: RequestInit
 ): Promise<getContent20Response> => {
+	console.log('getContent20 async called', params)
 	return UmbracoClient<getContent20Response>(getGetContent20Url(params), {
 		...(options as UmbracoClientOptions),
 		method: 'GET'

@@ -7,6 +7,6 @@
  */
 
 export type GetUmbracoDeliveryApiV2SearchItemsParams = {
-keywords?: string;
-culture?: string;
-};
+	keywords?: string
+	culture?: string
+}

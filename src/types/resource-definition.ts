@@ -4,5 +4,5 @@ export interface ResourceDefinition {
 	name: string
 	description: string
 	uri: string
-	handler: () => Promise<ReadResourceResult>
+	handler: (uri: URL, variables?: any, routeId?: string) => Promise<ReadResourceResult>
 }

@@ -37,7 +37,9 @@ export async function UmbracoClient<T>(
 	const allHeaders: Record<string, string> = { ...headers }
 
 	allHeaders['Api-Key'] = apiKey
-	allHeaders['Happydance'] = wafKey
+	allHeaders['happydance'] = wafKey
+
+	console.log('UmbracoClient making API call to: ', url)
 
 	const res = await fetch(url, {
 		headers: allHeaders,

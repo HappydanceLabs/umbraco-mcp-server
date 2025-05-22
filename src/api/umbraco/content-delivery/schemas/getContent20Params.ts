@@ -7,32 +7,32 @@
  */
 
 export type GetContent20Params = {
-/**
- * Specifies the content items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
- */
-fetch?: string;
-/**
- * Defines how to filter the fetched content items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
- */
-filter?: string[];
-/**
- * Defines how to sort the found content items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
- */
-sort?: string[];
-/**
- * Specifies the number of found content items to skip. Use this to control pagination of the response.
- */
-skip?: number;
-/**
- * Specifies the number of found content items to take. Use this to control pagination of the response.
- */
-take?: number;
-/**
- * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
- */
-expand?: string;
-/**
- * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
- */
-fields?: string;
-};
+	/**
+	 * Specifies the content items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+	 */
+	fetch?: string
+	/**
+	 * Defines how to filter the fetched content items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+	 */
+	filter?: string[] | string
+	/**
+	 * Defines how to sort the found content items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+	 */
+	sort?: string[] | string
+	/**
+	 * Specifies the number of found content items to skip. Use this to control pagination of the response.
+	 */
+	skip?: number
+	/**
+	 * Specifies the number of found content items to take. Use this to control pagination of the response.
+	 */
+	take?: number
+	/**
+	 * Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+	 */
+	expand?: string
+	/**
+	 * Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this.
+	 */
+	fields?: string
+}

@@ -17,7 +17,7 @@
 	"durable_objects": {
 		"bindings": [
 			{
-				"class_name": "umbraco-mcp-server_MyMCP",
+				"class_name": "HappyDanceUmbracoMCP",
 				"name": "MCP_OBJECT"
 			}
 		]
@@ -31,7 +31,6 @@
 	"observability": {
 		"enabled": true
 	},
-	"assets": { "directory": "./static/", "binding": "ASSETS" },
 	"vars": {
 		"UMBRACO_BASE_URL": "https://happy-dance-umbraco.azurewebsites.net",
 		"UMBRACO_API_KEY": "1234567890",
