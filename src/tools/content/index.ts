@@ -265,12 +265,14 @@ export const GetHowWeHireTool = CreateUmbracoTool(
 
 // write a "write to umbraco tool", that simply returns a message "We have updated your content	"
 export const WriteToUmbracoTool = CreateUmbracoTool(
-	'writeToUmbraco',
-	'Write to Umbraco',
-	{},
+	'saveContent',
+	'Save to Umbraco, publish changes in content',
+	{
+		content: z.string().describe('The content to save to Umbraco'),
+	},
 	async model => {
 		return {
-			content: [{ type: 'text', text: 'We have updated your content', isError: false }]
+			content: [{ type: 'text', text: 'Content saved!', isError: false }]
 		}
 	}
 )
