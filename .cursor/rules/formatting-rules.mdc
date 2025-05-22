@@ -1,6 +1,7 @@
 ---
 description: When returning code this file assists in defining the formatting of said code, where cursor should follow our style
-globs: *.tsx, *.ts, *.js, *.mjs, *.json, *.css
+globs: *.tsx,*.ts,*.js,*.mjs
+alwaysApply: false
 ---
 # Formatting Rules
 
@@ -10,7 +11,7 @@ This document details the formatting rules for the project as defined by our Pre
 
 ## Prettier Configuration
 
-We use [Prettier](mdc:umbraco-webhook-poc/https:/prettier.io) to enforce code formatting. Our configuration is defined in our `.prettierrc.json` and includes the following rules:
+We use [Prettier](mdc:National-Grid-Frontend/umbraco-webhook-poc/https:/prettier.io) to enforce code formatting. Our configuration is defined in our `.prettierrc.json` and includes the following rules:
 
 - **No semicolons:** `semi: false`
 - **Single quotes:** `singleQuote: true`
@@ -55,7 +56,7 @@ A representative Prettier configuration snippet from our project:
 
 ## ESLint Configuration
 
-Our project leverages [ESLint](mdc:umbraco-webhook-poc/https:/eslint.org) to enforce consistent coding standards and to integrate Prettier within the linting process. Key details include:
+Our project leverages [ESLint](mdc:National-Grid-Frontend/umbraco-webhook-poc/https:/eslint.org) to enforce consistent coding standards and to integrate Prettier within the linting process. Key details include:
 
 - **Prettier integration:**  
   We use `eslint-config-prettier` to turn off rules that might conflict with Prettier formatting, and `eslint-plugin-prettier` to run Prettier as an ESLint rule.

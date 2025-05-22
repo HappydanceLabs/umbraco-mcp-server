@@ -1,188 +1,197 @@
 openapi: 3.0.1
 info:
   title: Umbraco Delivery API
-  description: "You can find out more about the Umbraco Delivery API in [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api)."
-  version: v2
-servers:
-- url: https://virtserver.swaggerhub.com/roybarber-ce6/NationalGrid/v2
-  description: SwaggerHub API Auto Mocking
-- url: https://dev-nationalgrid.happydance.dev
-  description: ""
-security:
-- undefined: []
+  description: >-
+    You can find out more about the Umbraco Delivery API in [the
+    documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api).
+  version: Latest
 paths:
   /umbraco/delivery/api/v2/content:
     get:
       tags:
-      - Content
+        - Content
       operationId: GetContent2.0
       parameters:
-      - name: fetch
-        in: query
-        description: "Specifies the content items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Select all:
-            value: ""
-          Select all ancestors of a node by id:
-            value: ancestors:id
-          Select all ancestors of a node by path:
-            value: ancestors:path
-          Select all children of a node by id:
-            value: children:id
-          Select all children of a node by path:
-            value: children:path
-          Select all descendants of a node by id:
-            value: descendants:id
-          Select all descendants of a node by path:
-            value: descendants:path
-      - name: filter
-        in: query
-        description: "Defines how to filter the fetched content items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: array
-          items:
+        - name: fetch
+          in: query
+          description: >-
+            Specifies the content items to fetch. Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters)
+            for more details on this.
+          schema:
             type: string
-        examples:
-          Default filter:
-            value: ""
-          Filter by content type (equals):
-            value:
-            - contentType:alias1
-          Filter by name (contains):
-            value:
-            - name:nodeName
-          Filter by creation date (less than):
-            value:
-            - createDate<2024-01-01
-          Filter by update date (greater than or equal):
-            value:
-            - updateDate>:2023-01-01
-      - name: sort
-        in: query
-        description: "Defines how to sort the found content items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: array
-          items:
+          examples:
+            Select all:
+              value: ''
+            Select all ancestors of a node by id:
+              value: ancestors:id
+            Select all ancestors of a node by path:
+              value: ancestors:path
+            Select all children of a node by id:
+              value: children:id
+            Select all children of a node by path:
+              value: children:path
+            Select all descendants of a node by id:
+              value: descendants:id
+            Select all descendants of a node by path:
+              value: descendants:path
+        - name: filter
+          in: query
+          description: >-
+            Defines how to filter the fetched content items. Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters)
+            for more details on this.
+          schema:
+            type: array
+            items:
+              type: string
+          examples:
+            Default filter:
+              value: ''
+            Filter by content type (equals):
+              value:
+                - contentType:alias1
+            Filter by name (contains):
+              value:
+                - name:nodeName
+            Filter by creation date (less than):
+              value:
+                - createDate<2024-01-01
+            Filter by update date (greater than or equal):
+              value:
+                - updateDate>:2023-01-01
+        - name: sort
+          in: query
+          description: >-
+            Defines how to sort the found content items. Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters)
+            for more details on this.
+          schema:
+            type: array
+            items:
+              type: string
+          examples:
+            Default sort:
+              value: ''
+            Sort by create date:
+              value:
+                - createDate:asc
+                - createDate:desc
+            Sort by level:
+              value:
+                - level:asc
+                - level:desc
+            Sort by name:
+              value:
+                - name:asc
+                - name:desc
+            Sort by sort order:
+              value:
+                - sortOrder:asc
+                - sortOrder:desc
+            Sort by update date:
+              value:
+                - updateDate:asc
+                - updateDate:desc
+        - name: skip
+          in: query
+          description: >-
+            Specifies the number of found content items to skip. Use this to
+            control pagination of the response.
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: take
+          in: query
+          description: >-
+            Specifies the number of found content items to take. Use this to
+            control pagination of the response.
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: expand
+          in: query
+          description: >-
+            Defines the properties that should be expanded in the response.
+            Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters)
+            for more details on this.
+          schema:
             type: string
-        examples:
-          Default sort:
-            value: ""
-          Sort by create date:
-            value:
-            - createDate:asc
-            - createDate:desc
-          Sort by level:
-            value:
-            - level:asc
-            - level:desc
-          Sort by name:
-            value:
-            - name:asc
-            - name:desc
-          Sort by sort order:
-            value:
-            - sortOrder:asc
-            - sortOrder:desc
-          Sort by update date:
-            value:
-            - updateDate:asc
-            - updateDate:desc
-      - name: skip
-        in: query
-        description: Specifies the number of found content items to skip. Use this to control pagination of the response.
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: take
-        in: query
-        description: Specifies the number of found content items to take. Use this to control pagination of the response.
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 10
-      - name: expand
-        in: query
-        description: "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Expand none:
-            value: ""
-          Expand all properties:
-            value: "properties[$all]"
-          Expand specific property:
-            value: "properties[alias1]"
-          Expand specific properties:
-            value: "properties[alias1,alias2]"
-          Expand nested properties:
-            value: "properties[alias1[properties[nestedAlias1,nestedAlias2]]]"
-      - name: fields
-        in: query
-        description: "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Include all properties:
-            value: "properties[$all]"
-          Include only specific property:
-            value: "properties[alias1]"
-          Include only specific properties:
-            value: "properties[alias1,alias2]"
-          Include only specific nested properties:
-            value: "properties[alias1[properties[nestedAlias1,nestedAlias2]]]"
-      - name: Accept-Language
-        in: header
-        description: Defines the language to return. Use this when querying language variant content items.
-        required: false
-        schema:
-          type: string
-        examples:
-          Default:
-            value: ""
-          English culture:
-            value: en-us
-      - name: Api-Key
-        in: header
-        description: API key specified through configuration to authorize access to the API.
-        required: false
-        schema:
-          type: string
-      - name: Preview
-        in: header
-        description: Whether to request draft content.
-        required: false
-        schema:
-          type: boolean
-      - name: Start-Item
-        in: header
-        description: URL segment or GUID of a root content item.
-        required: false
-        schema:
-          type: string
+          examples:
+            Expand none:
+              value: ''
+            Expand all properties:
+              value: properties[$all]
+            Expand specific property:
+              value: properties[alias1]
+            Expand specific properties:
+              value: properties[alias1,alias2]
+            Expand nested properties:
+              value: properties[alias1[properties[nestedAlias1,nestedAlias2]]]
+        - name: fields
+          in: query
+          description: >-
+            Explicitly defines which properties should be included in the
+            response (by default all properties are included). Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters)
+            for more details on this.
+          schema:
+            type: string
+          examples:
+            Include all properties:
+              value: properties[$all]
+            Include only specific property:
+              value: properties[alias1]
+            Include only specific properties:
+              value: properties[alias1,alias2]
+            Include only specific nested properties:
+              value: properties[alias1[properties[nestedAlias1,nestedAlias2]]]
+        - name: Accept-Language
+          in: header
+          description: >-
+            Defines the language to return. Use this when querying language
+            variant content items.
+          schema:
+            type: string
+          examples:
+            Default:
+              value: ''
+            English culture:
+              value: en-us
+        - name: Api-Key
+          in: header
+          description: >-
+            API key specified through configuration to authorize access to the
+            API.
+          schema:
+            type: string
+        - name: Preview
+          in: header
+          description: Whether to request draft content.
+          schema:
+            type: boolean
+        - name: Start-Item
+          in: header
+          description: URL segment or GUID of a root content item.
+          schema:
+            type: string
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedIApiContentResponseModel'
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-        "404":
+        '404':
           description: Not Found
           content:
             application/json:
@@ -191,96 +200,102 @@ paths:
   /umbraco/delivery/api/v2/content/item/{path}:
     get:
       tags:
-      - Content
+        - Content
       operationId: GetContentItemByPath2.0
       parameters:
-      - name: path
-        in: path
-        required: true
-        schema:
-          type: string
-          default: ""
-      - name: expand
-        in: query
-        description: "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Expand none:
-            value: ""
-          Expand all properties:
-            value: "properties[$all]"
-          Expand specific property:
-            value: "properties[alias1]"
-          Expand specific properties:
-            value: "properties[alias1,alias2]"
-          Expand nested properties:
-            value: "properties[alias1[properties[nestedAlias1,nestedAlias2]]]"
-      - name: fields
-        in: query
-        description: "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Include all properties:
-            value: "properties[$all]"
-          Include only specific property:
-            value: "properties[alias1]"
-          Include only specific properties:
-            value: "properties[alias1,alias2]"
-          Include only specific nested properties:
-            value: "properties[alias1[properties[nestedAlias1,nestedAlias2]]]"
-      - name: Accept-Language
-        in: header
-        description: Defines the language to return. Use this when querying language variant content items.
-        required: false
-        schema:
-          type: string
-        examples:
-          Default:
-            value: ""
-          English culture:
-            value: en-us
-      - name: Api-Key
-        in: header
-        description: API key specified through configuration to authorize access to the API.
-        required: false
-        schema:
-          type: string
-      - name: Preview
-        in: header
-        description: Whether to request draft content.
-        required: false
-        schema:
-          type: boolean
-      - name: Start-Item
-        in: header
-        description: URL segment or GUID of a root content item.
-        required: false
-        schema:
-          type: string
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+            default: ''
+        - name: expand
+          in: query
+          description: >-
+            Defines the properties that should be expanded in the response.
+            Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters)
+            for more details on this.
+          schema:
+            type: string
+          examples:
+            Expand none:
+              value: ''
+            Expand all properties:
+              value: properties[$all]
+            Expand specific property:
+              value: properties[alias1]
+            Expand specific properties:
+              value: properties[alias1,alias2]
+            Expand nested properties:
+              value: properties[alias1[properties[nestedAlias1,nestedAlias2]]]
+        - name: fields
+          in: query
+          description: >-
+            Explicitly defines which properties should be included in the
+            response (by default all properties are included). Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters)
+            for more details on this.
+          schema:
+            type: string
+          examples:
+            Include all properties:
+              value: properties[$all]
+            Include only specific property:
+              value: properties[alias1]
+            Include only specific properties:
+              value: properties[alias1,alias2]
+            Include only specific nested properties:
+              value: properties[alias1[properties[nestedAlias1,nestedAlias2]]]
+        - name: Accept-Language
+          in: header
+          description: >-
+            Defines the language to return. Use this when querying language
+            variant content items.
+          schema:
+            type: string
+          examples:
+            Default:
+              value: ''
+            English culture:
+              value: en-us
+        - name: Api-Key
+          in: header
+          description: >-
+            API key specified through configuration to authorize access to the
+            API.
+          schema:
+            type: string
+        - name: Preview
+          in: header
+          description: Whether to request draft content.
+          schema:
+            type: boolean
+        - name: Start-Item
+          in: header
+          description: URL segment or GUID of a root content item.
+          schema:
+            type: string
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/IApiContentResponseModel'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-        "403":
+        '403':
           description: Forbidden
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-        "404":
+        '404':
           description: Not Found
           content:
             application/json:
@@ -289,96 +304,102 @@ paths:
   /umbraco/delivery/api/v2/content/item/{id}:
     get:
       tags:
-      - Content
+        - Content
       operationId: GetContentItemById2.0
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-      - name: expand
-        in: query
-        description: "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Expand none:
-            value: ""
-          Expand all properties:
-            value: "properties[$all]"
-          Expand specific property:
-            value: "properties[alias1]"
-          Expand specific properties:
-            value: "properties[alias1,alias2]"
-          Expand nested properties:
-            value: "properties[alias1[properties[nestedAlias1,nestedAlias2]]]"
-      - name: fields
-        in: query
-        description: "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Include all properties:
-            value: "properties[$all]"
-          Include only specific property:
-            value: "properties[alias1]"
-          Include only specific properties:
-            value: "properties[alias1,alias2]"
-          Include only specific nested properties:
-            value: "properties[alias1[properties[nestedAlias1,nestedAlias2]]]"
-      - name: Accept-Language
-        in: header
-        description: Defines the language to return. Use this when querying language variant content items.
-        required: false
-        schema:
-          type: string
-        examples:
-          Default:
-            value: ""
-          English culture:
-            value: en-us
-      - name: Api-Key
-        in: header
-        description: API key specified through configuration to authorize access to the API.
-        required: false
-        schema:
-          type: string
-      - name: Preview
-        in: header
-        description: Whether to request draft content.
-        required: false
-        schema:
-          type: boolean
-      - name: Start-Item
-        in: header
-        description: URL segment or GUID of a root content item.
-        required: false
-        schema:
-          type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: expand
+          in: query
+          description: >-
+            Defines the properties that should be expanded in the response.
+            Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters)
+            for more details on this.
+          schema:
+            type: string
+          examples:
+            Expand none:
+              value: ''
+            Expand all properties:
+              value: properties[$all]
+            Expand specific property:
+              value: properties[alias1]
+            Expand specific properties:
+              value: properties[alias1,alias2]
+            Expand nested properties:
+              value: properties[alias1[properties[nestedAlias1,nestedAlias2]]]
+        - name: fields
+          in: query
+          description: >-
+            Explicitly defines which properties should be included in the
+            response (by default all properties are included). Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters)
+            for more details on this.
+          schema:
+            type: string
+          examples:
+            Include all properties:
+              value: properties[$all]
+            Include only specific property:
+              value: properties[alias1]
+            Include only specific properties:
+              value: properties[alias1,alias2]
+            Include only specific nested properties:
+              value: properties[alias1[properties[nestedAlias1,nestedAlias2]]]
+        - name: Accept-Language
+          in: header
+          description: >-
+            Defines the language to return. Use this when querying language
+            variant content items.
+          schema:
+            type: string
+          examples:
+            Default:
+              value: ''
+            English culture:
+              value: en-us
+        - name: Api-Key
+          in: header
+          description: >-
+            API key specified through configuration to authorize access to the
+            API.
+          schema:
+            type: string
+        - name: Preview
+          in: header
+          description: Whether to request draft content.
+          schema:
+            type: boolean
+        - name: Start-Item
+          in: header
+          description: URL segment or GUID of a root content item.
+          schema:
+            type: string
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/IApiContentResponseModel'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-        "403":
+        '403':
           description: Forbidden
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-        "404":
+        '404':
           description: Not Found
           content:
             application/json:
@@ -387,81 +408,86 @@ paths:
   /umbraco/delivery/api/v2/content/items:
     get:
       tags:
-      - Content
+        - Content
       operationId: GetContentItems2.0
       parameters:
-      - name: id
-        in: query
-        required: false
-        schema:
-          uniqueItems: true
-          type: array
-          items:
+        - name: id
+          in: query
+          schema:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              format: uuid
+        - name: expand
+          in: query
+          description: >-
+            Defines the properties that should be expanded in the response.
+            Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters)
+            for more details on this.
+          schema:
             type: string
-            format: uuid
-      - name: expand
-        in: query
-        description: "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Expand none:
-            value: ""
-          Expand all properties:
-            value: "properties[$all]"
-          Expand specific property:
-            value: "properties[alias1]"
-          Expand specific properties:
-            value: "properties[alias1,alias2]"
-          Expand nested properties:
-            value: "properties[alias1[properties[nestedAlias1,nestedAlias2]]]"
-      - name: fields
-        in: query
-        description: "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Include all properties:
-            value: "properties[$all]"
-          Include only specific property:
-            value: "properties[alias1]"
-          Include only specific properties:
-            value: "properties[alias1,alias2]"
-          Include only specific nested properties:
-            value: "properties[alias1[properties[nestedAlias1,nestedAlias2]]]"
-      - name: Accept-Language
-        in: header
-        description: Defines the language to return. Use this when querying language variant content items.
-        required: false
-        schema:
-          type: string
-        examples:
-          Default:
-            value: ""
-          English culture:
-            value: en-us
-      - name: Api-Key
-        in: header
-        description: API key specified through configuration to authorize access to the API.
-        required: false
-        schema:
-          type: string
-      - name: Preview
-        in: header
-        description: Whether to request draft content.
-        required: false
-        schema:
-          type: boolean
-      - name: Start-Item
-        in: header
-        description: URL segment or GUID of a root content item.
-        required: false
-        schema:
-          type: string
+          examples:
+            Expand none:
+              value: ''
+            Expand all properties:
+              value: properties[$all]
+            Expand specific property:
+              value: properties[alias1]
+            Expand specific properties:
+              value: properties[alias1,alias2]
+            Expand nested properties:
+              value: properties[alias1[properties[nestedAlias1,nestedAlias2]]]
+        - name: fields
+          in: query
+          description: >-
+            Explicitly defines which properties should be included in the
+            response (by default all properties are included). Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api#query-parameters)
+            for more details on this.
+          schema:
+            type: string
+          examples:
+            Include all properties:
+              value: properties[$all]
+            Include only specific property:
+              value: properties[alias1]
+            Include only specific properties:
+              value: properties[alias1,alias2]
+            Include only specific nested properties:
+              value: properties[alias1[properties[nestedAlias1,nestedAlias2]]]
+        - name: Accept-Language
+          in: header
+          description: >-
+            Defines the language to return. Use this when querying language
+            variant content items.
+          schema:
+            type: string
+          examples:
+            Default:
+              value: ''
+            English culture:
+              value: en-us
+        - name: Api-Key
+          in: header
+          description: >-
+            API key specified through configuration to authorize access to the
+            API.
+          schema:
+            type: string
+        - name: Preview
+          in: header
+          description: Whether to request draft content.
+          schema:
+            type: boolean
+        - name: Start-Item
+          in: header
+          description: URL segment or GUID of a root content item.
+          schema:
+            type: string
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -469,13 +495,13 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/IApiContentResponseModel'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-        "403":
+        '403':
           description: Forbidden
           content:
             application/json:
@@ -484,128 +510,143 @@ paths:
   /umbraco/delivery/api/v2/media:
     get:
       tags:
-      - Media
+        - Media
       operationId: GetMedia2.0
       parameters:
-      - name: fetch
-        in: query
-        description: "Specifies the media items to fetch. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Select all children at root level:
-            value: children:/
-          Select all children of a media item by id:
-            value: children:id
-          Select all children of a media item by path:
-            value: children:path
-      - name: filter
-        in: query
-        description: "Defines how to filter the fetched media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: array
-          items:
+        - name: fetch
+          in: query
+          description: >-
+            Specifies the media items to fetch. Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters)
+            for more details on this.
+          schema:
             type: string
-        examples:
-          Default filter:
-            value: ""
-          Filter by media type:
-            value:
-            - mediaType:alias1
-          Filter by name:
-            value:
-            - name:nodeName
-      - name: sort
-        in: query
-        description: "Defines how to sort the found media items. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: array
-          items:
+          examples:
+            Select all children at root level:
+              value: children:/
+            Select all children of a media item by id:
+              value: children:id
+            Select all children of a media item by path:
+              value: children:path
+        - name: filter
+          in: query
+          description: >-
+            Defines how to filter the fetched media items. Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters)
+            for more details on this.
+          schema:
+            type: array
+            items:
+              type: string
+          examples:
+            Default filter:
+              value: ''
+            Filter by media type:
+              value:
+                - mediaType:alias1
+            Filter by name:
+              value:
+                - name:nodeName
+        - name: sort
+          in: query
+          description: >-
+            Defines how to sort the found media items. Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters)
+            for more details on this.
+          schema:
+            type: array
+            items:
+              type: string
+          examples:
+            Default sort:
+              value: ''
+            Sort by create date:
+              value:
+                - createDate:asc
+                - createDate:desc
+            Sort by name:
+              value:
+                - name:asc
+                - name:desc
+            Sort by sort order:
+              value:
+                - sortOrder:asc
+                - sortOrder:desc
+            Sort by update date:
+              value:
+                - updateDate:asc
+                - updateDate:desc
+        - name: skip
+          in: query
+          description: >-
+            Specifies the number of found media items to skip. Use this to
+            control pagination of the response.
+          schema:
+            type: integer
+            format: int32
+            default: 0
+        - name: take
+          in: query
+          description: >-
+            Specifies the number of found media items to take. Use this to
+            control pagination of the response.
+          schema:
+            type: integer
+            format: int32
+            default: 10
+        - name: expand
+          in: query
+          description: >-
+            Defines the properties that should be expanded in the response.
+            Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters)
+            for more details on this.
+          schema:
             type: string
-        examples:
-          Default sort:
-            value: ""
-          Sort by create date:
-            value:
-            - createDate:asc
-            - createDate:desc
-          Sort by name:
-            value:
-            - name:asc
-            - name:desc
-          Sort by sort order:
-            value:
-            - sortOrder:asc
-            - sortOrder:desc
-          Sort by update date:
-            value:
-            - updateDate:asc
-            - updateDate:desc
-      - name: skip
-        in: query
-        description: Specifies the number of found media items to skip. Use this to control pagination of the response.
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 0
-      - name: take
-        in: query
-        description: Specifies the number of found media items to take. Use this to control pagination of the response.
-        required: false
-        schema:
-          type: integer
-          format: int32
-          default: 10
-      - name: expand
-        in: query
-        description: "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Expand none:
-            value: ""
-          Expand all properties:
-            value: "properties[$all]"
-          Expand specific property:
-            value: "properties[alias1]"
-          Expand specific properties:
-            value: "properties[alias1,alias2]"
-          Expand nested properties:
-            value: "properties[alias1[properties[nestedAlias1,nestedAlias2]]]"
-      - name: fields
-        in: query
-        description: "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Include all properties:
-            value: "properties[$all]"
-          Include only specific property:
-            value: "properties[alias1]"
-          Include only specific properties:
-            value: "properties[alias1,alias2]"
-          Include only specific nested properties:
-            value: "properties[alias1[properties[nestedAlias1,nestedAlias2]]]"
-      - name: Api-Key
-        in: header
-        description: API key specified through configuration to authorize access to the API.
-        required: false
-        schema:
-          type: string
+          examples:
+            Expand none:
+              value: ''
+            Expand all properties:
+              value: properties[$all]
+            Expand specific property:
+              value: properties[alias1]
+            Expand specific properties:
+              value: properties[alias1,alias2]
+            Expand nested properties:
+              value: properties[alias1[properties[nestedAlias1,nestedAlias2]]]
+        - name: fields
+          in: query
+          description: >-
+            Explicitly defines which properties should be included in the
+            response (by default all properties are included). Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters)
+            for more details on this.
+          schema:
+            type: string
+          examples:
+            Include all properties:
+              value: properties[$all]
+            Include only specific property:
+              value: properties[alias1]
+            Include only specific properties:
+              value: properties[alias1,alias2]
+            Include only specific nested properties:
+              value: properties[alias1[properties[nestedAlias1,nestedAlias2]]]
+        - name: Api-Key
+          in: header
+          description: >-
+            API key specified through configuration to authorize access to the
+            API.
+          schema:
+            type: string
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PagedIApiMediaWithCropsResponseModel'
-        "400":
+        '400':
           description: Bad Request
           content:
             application/json:
@@ -614,60 +655,67 @@ paths:
   /umbraco/delivery/api/v2/media/item/{path}:
     get:
       tags:
-      - Media
+        - Media
       operationId: GetMediaItemByPath2.0
       parameters:
-      - name: path
-        in: path
-        required: true
-        schema:
-          type: string
-      - name: expand
-        in: query
-        description: "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Expand none:
-            value: ""
-          Expand all properties:
-            value: "properties[$all]"
-          Expand specific property:
-            value: "properties[alias1]"
-          Expand specific properties:
-            value: "properties[alias1,alias2]"
-          Expand nested properties:
-            value: "properties[alias1[properties[nestedAlias1,nestedAlias2]]]"
-      - name: fields
-        in: query
-        description: "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Include all properties:
-            value: "properties[$all]"
-          Include only specific property:
-            value: "properties[alias1]"
-          Include only specific properties:
-            value: "properties[alias1,alias2]"
-          Include only specific nested properties:
-            value: "properties[alias1[properties[nestedAlias1,nestedAlias2]]]"
-      - name: Api-Key
-        in: header
-        description: API key specified through configuration to authorize access to the API.
-        required: false
-        schema:
-          type: string
+        - name: path
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: expand
+          in: query
+          description: >-
+            Defines the properties that should be expanded in the response.
+            Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters)
+            for more details on this.
+          schema:
+            type: string
+          examples:
+            Expand none:
+              value: ''
+            Expand all properties:
+              value: properties[$all]
+            Expand specific property:
+              value: properties[alias1]
+            Expand specific properties:
+              value: properties[alias1,alias2]
+            Expand nested properties:
+              value: properties[alias1[properties[nestedAlias1,nestedAlias2]]]
+        - name: fields
+          in: query
+          description: >-
+            Explicitly defines which properties should be included in the
+            response (by default all properties are included). Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters)
+            for more details on this.
+          schema:
+            type: string
+          examples:
+            Include all properties:
+              value: properties[$all]
+            Include only specific property:
+              value: properties[alias1]
+            Include only specific properties:
+              value: properties[alias1,alias2]
+            Include only specific nested properties:
+              value: properties[alias1[properties[nestedAlias1,nestedAlias2]]]
+        - name: Api-Key
+          in: header
+          description: >-
+            API key specified through configuration to authorize access to the
+            API.
+          schema:
+            type: string
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/IApiMediaWithCropsResponseModel'
-        "404":
+        '404':
           description: Not Found
           content:
             application/json:
@@ -676,61 +724,68 @@ paths:
   /umbraco/delivery/api/v2/media/item/{id}:
     get:
       tags:
-      - Media
+        - Media
       operationId: GetMediaItemById2.0
       parameters:
-      - name: id
-        in: path
-        required: true
-        schema:
-          type: string
-          format: uuid
-      - name: expand
-        in: query
-        description: "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Expand none:
-            value: ""
-          Expand all properties:
-            value: "properties[$all]"
-          Expand specific property:
-            value: "properties[alias1]"
-          Expand specific properties:
-            value: "properties[alias1,alias2]"
-          Expand nested properties:
-            value: "properties[alias1[properties[nestedAlias1,nestedAlias2]]]"
-      - name: fields
-        in: query
-        description: "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Include all properties:
-            value: "properties[$all]"
-          Include only specific property:
-            value: "properties[alias1]"
-          Include only specific properties:
-            value: "properties[alias1,alias2]"
-          Include only specific nested properties:
-            value: "properties[alias1[properties[nestedAlias1,nestedAlias2]]]"
-      - name: Api-Key
-        in: header
-        description: API key specified through configuration to authorize access to the API.
-        required: false
-        schema:
-          type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: expand
+          in: query
+          description: >-
+            Defines the properties that should be expanded in the response.
+            Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters)
+            for more details on this.
+          schema:
+            type: string
+          examples:
+            Expand none:
+              value: ''
+            Expand all properties:
+              value: properties[$all]
+            Expand specific property:
+              value: properties[alias1]
+            Expand specific properties:
+              value: properties[alias1,alias2]
+            Expand nested properties:
+              value: properties[alias1[properties[nestedAlias1,nestedAlias2]]]
+        - name: fields
+          in: query
+          description: >-
+            Explicitly defines which properties should be included in the
+            response (by default all properties are included). Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters)
+            for more details on this.
+          schema:
+            type: string
+          examples:
+            Include all properties:
+              value: properties[$all]
+            Include only specific property:
+              value: properties[alias1]
+            Include only specific properties:
+              value: properties[alias1,alias2]
+            Include only specific nested properties:
+              value: properties[alias1[properties[nestedAlias1,nestedAlias2]]]
+        - name: Api-Key
+          in: header
+          description: >-
+            API key specified through configuration to authorize access to the
+            API.
+          schema:
+            type: string
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/IApiMediaWithCropsResponseModel'
-        "404":
+        '404':
           description: Not Found
           content:
             application/json:
@@ -739,58 +794,64 @@ paths:
   /umbraco/delivery/api/v2/media/items:
     get:
       tags:
-      - Media
+        - Media
       operationId: GetMediaItems2.0
       parameters:
-      - name: id
-        in: query
-        required: false
-        schema:
-          uniqueItems: true
-          type: array
-          items:
+        - name: id
+          in: query
+          schema:
+            uniqueItems: true
+            type: array
+            items:
+              type: string
+              format: uuid
+        - name: expand
+          in: query
+          description: >-
+            Defines the properties that should be expanded in the response.
+            Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters)
+            for more details on this.
+          schema:
             type: string
-            format: uuid
-      - name: expand
-        in: query
-        description: "Defines the properties that should be expanded in the response. Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Expand none:
-            value: ""
-          Expand all properties:
-            value: "properties[$all]"
-          Expand specific property:
-            value: "properties[alias1]"
-          Expand specific properties:
-            value: "properties[alias1,alias2]"
-          Expand nested properties:
-            value: "properties[alias1[properties[nestedAlias1,nestedAlias2]]]"
-      - name: fields
-        in: query
-        description: "Explicitly defines which properties should be included in the response (by default all properties are included). Refer to [the documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters) for more details on this."
-        required: false
-        schema:
-          type: string
-        examples:
-          Include all properties:
-            value: "properties[$all]"
-          Include only specific property:
-            value: "properties[alias1]"
-          Include only specific properties:
-            value: "properties[alias1,alias2]"
-          Include only specific nested properties:
-            value: "properties[alias1[properties[nestedAlias1,nestedAlias2]]]"
-      - name: Api-Key
-        in: header
-        description: API key specified through configuration to authorize access to the API.
-        required: false
-        schema:
-          type: string
+          examples:
+            Expand none:
+              value: ''
+            Expand all properties:
+              value: properties[$all]
+            Expand specific property:
+              value: properties[alias1]
+            Expand specific properties:
+              value: properties[alias1,alias2]
+            Expand nested properties:
+              value: properties[alias1[properties[nestedAlias1,nestedAlias2]]]
+        - name: fields
+          in: query
+          description: >-
+            Explicitly defines which properties should be included in the
+            response (by default all properties are included). Refer to [the
+            documentation](https://docs.umbraco.com/umbraco-cms/reference/content-delivery-api/media-delivery-api#query-parameters)
+            for more details on this.
+          schema:
+            type: string
+          examples:
+            Include all properties:
+              value: properties[$all]
+            Include only specific property:
+              value: properties[alias1]
+            Include only specific properties:
+              value: properties[alias1,alias2]
+            Include only specific nested properties:
+              value: properties[alias1[properties[nestedAlias1,nestedAlias2]]]
+        - name: Api-Key
+          in: header
+          description: >-
+            API key specified through configuration to authorize access to the
+            API.
+          schema:
+            type: string
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
@@ -801,21 +862,54 @@ paths:
   /umbraco/delivery/api/v2/navigation/items:
     get:
       tags:
-      - Navigation
+        - Navigation
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/NavigationApiResponse'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-        "403":
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /umbraco/delivery/api/v2/search/items:
+    get:
+      tags:
+        - Search
+      parameters:
+        - name: keywords
+          in: query
+          schema:
+            type: string
+        - name: culture
+          in: query
+          schema:
+            type: string
+            default: en-gb
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchApiResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '403':
           description: Forbidden
           content:
             application/json:
@@ -824,21 +918,21 @@ paths:
   /umbraco/delivery/api/v2/translations/items:
     get:
       tags:
-      - Translations
+        - Translations
       responses:
-        "200":
+        '200':
           description: OK
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TranslationApiResponse'
-        "401":
+        '401':
           description: Unauthorized
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ProblemDetails'
-        "403":
+        '403':
           description: Forbidden
           content:
             application/json:
@@ -846,6 +940,54 @@ paths:
                 $ref: '#/components/schemas/ProblemDetails'
 components:
   schemas:
+    DateRange:
+      type: object
+      properties:
+        dateField:
+          type: string
+        fromDate:
+          type: string
+          format: date-time
+        toDate:
+          type: string
+          format: date-time
+      additionalProperties: false
+    ExamineSearchResults:
+      type: object
+      properties:
+        hasResults:
+          type: boolean
+          readOnly: true
+        baseSearchResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/ISearchResult'
+          readOnly: true
+        searchPhrase:
+          type: string
+          readOnly: true
+        queryBuilder:
+          $ref: '#/components/schemas/IQueryBuilder'
+        rawQuery:
+          type: string
+          readOnly: true
+        totalResults:
+          type: integer
+          format: int64
+          readOnly: true
+        searchResults:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+        errorMessages:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        hasErrors:
+          type: boolean
+          readOnly: true
+      additionalProperties: false
     IApiContentResponseModel:
       type: object
       properties:
@@ -945,10 +1087,10 @@ components:
           $ref: '#/components/schemas/ImageFocalPointModel'
         crops:
           type: array
-          nullable: true
-          readOnly: true
           items:
             $ref: '#/components/schemas/ImageCropModel'
+          nullable: true
+          readOnly: true
         path:
           type: string
           readOnly: true
@@ -959,6 +1101,60 @@ components:
         updateDate:
           type: string
           format: date-time
+          readOnly: true
+      additionalProperties: false
+    IQueryBuilder:
+      type: object
+      properties:
+        aliasesToIgnore:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        aliasesToSearch:
+          type: array
+          items:
+            type: string
+          readOnly: true
+        dateRangeToSearch:
+          $ref: '#/components/schemas/DateRange'
+        doNotIndexProperty:
+          type: string
+        ignoreDocumentsWithNoTemplate:
+          type: boolean
+        indexType:
+          $ref: '#/components/schemas/IndexType'
+        startNodeId:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    ISearchResult:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+          readOnly: true
+        score:
+          type: number
+          format: float
+          readOnly: true
+        values:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+          readOnly: true
+        allValues:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+            nullable: true
+          nullable: true
           readOnly: true
       additionalProperties: false
     ImageCropCoordinatesModel:
@@ -1002,6 +1198,12 @@ components:
           type: number
           format: double
       additionalProperties: false
+    IndexType:
+      enum:
+        - All
+        - Content
+        - Media
+      type: string
     Locale:
       type: object
       properties:
@@ -1054,8 +1256,8 @@ components:
       additionalProperties: false
     PagedIApiContentResponseModel:
       required:
-      - items
-      - total
+        - items
+        - total
       type: object
       properties:
         total:
@@ -1068,8 +1270,8 @@ components:
       additionalProperties: false
     PagedIApiMediaWithCropsResponseModel:
       required:
-      - items
-      - total
+        - items
+        - total
       type: object
       properties:
         total:
@@ -1079,6 +1281,56 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/IApiMediaWithCropsResponseModel'
+      additionalProperties: false
+    Paging:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+        hasItems:
+          type: boolean
+          readOnly: true
+        pageSize:
+          type: integer
+          format: int32
+        totalItems:
+          type: integer
+          format: int64
+          readOnly: true
+        totalPages:
+          type: integer
+          format: int32
+          readOnly: true
+        currentPage:
+          type: integer
+          format: int32
+        isFirstPage:
+          type: boolean
+          readOnly: true
+        isLastPage:
+          type: boolean
+          readOnly: true
+        hasPreviousPage:
+          type: boolean
+          readOnly: true
+        hasNextPage:
+          type: boolean
+          readOnly: true
+        resultStart:
+          type: integer
+          format: int32
+          readOnly: true
+        resultEnd:
+          type: integer
+          format: int32
+          readOnly: true
+        currentItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResult'
+          readOnly: true
       additionalProperties: false
     ProblemDetails:
       type: object
@@ -1100,6 +1352,46 @@ components:
           type: string
           nullable: true
       additionalProperties: {}
+    SearchApiResponse:
+      type: object
+      properties:
+        searchResponse:
+          $ref: '#/components/schemas/ExamineSearchResults'
+        searchResultsPaged:
+          $ref: '#/components/schemas/Paging'
+        hasSearchResults:
+          type: boolean
+          readOnly: true
+        hasSearchResponse:
+          type: boolean
+          readOnly: true
+      additionalProperties: false
+    SearchResult:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        score:
+          type: number
+          format: float
+        values:
+          type: object
+          additionalProperties:
+            type: string
+            nullable: true
+          nullable: true
+          readOnly: true
+        allValues:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+            nullable: true
+          nullable: true
+          readOnly: true
+      additionalProperties: false
     TranslationApiDictionaryItem:
       type: object
       properties:

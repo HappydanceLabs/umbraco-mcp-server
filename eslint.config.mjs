@@ -3,16 +3,19 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
-	eslint.configs.recommended,
-	tseslint.configs.recommendedTypeChecked,
 	{
-		languageOptions: {
-			parserOptions: {
-				projectService: true,
-				tsconfigRootDir: import.meta.dirname
-			}
-		}
+		ignores: [
+			'node_modules',
+			'.cursor/*',
+			'**/dist/',
+			'.vscode/*',
+			'.wrangler',
+			'.mcp-auth/*',
+			'umbraco-old'
+		]
 	},
+	eslint.configs.recommended,
+	tseslint.configs.recommended,
 	eslintPluginPrettierRecommended,
 	{
 		rules: {
@@ -22,7 +25,9 @@ export default tseslint.config(
 				'tab',
 				{
 					SwitchCase: 1,
-					offsetTernaryExpressions: true
+					offsetTernaryExpressions: true,
+					offsetSwitchCase: true,
+					offsetLogicalOperators: true
 				}
 			],
 			'comma-dangle': 'off',
@@ -30,11 +35,13 @@ export default tseslint.config(
 			semi: ['error', 'never'],
 			quotes: ['error', 'single'],
 			noTabs: 0,
-			'@typescript-eslint/no-explicit-any': 'off',
-			'prettier/prettier': 'off'
+			'prettier/prettier': 'off',
+			'@typescript-eslint/no-explicit-any': 'off'
 		}
 	},
 	{
-		ignores: ['node_modules', '.cursor/*', '**/dist/', '.vscode/*', '.wrangler', '.mcp-auth/*']
+		// disable type-aware linting on JS files
+		files: ['**/*.js'],
+		extends: [tseslint.configs.disableTypeChecked]
 	}
 )

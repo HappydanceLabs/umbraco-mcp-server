@@ -34,6 +34,7 @@
 	"assets": { "directory": "./static/", "binding": "ASSETS" },
 	"vars": {
 		"UMBRACO_BASE_URL": "https://happy-dance-umbraco.azurewebsites.net",
-		"UMBRACO_API_KEY": "1234567890"
+		"UMBRACO_API_KEY": "1234567890",
+		"WAF_API_KEY": "1234567890"
 	}
 }

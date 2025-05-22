@@ -18,5 +18,6 @@
 			"@/*": ["./src/*"]
 		}
 	},
-	"include": ["worker-configuration.d.ts", "src/**/*.ts"]
+	"include": ["./worker-configuration.d.ts", "./src/**/*.ts"],
+	"exclude": ["./node_modules", "./dist", "./umbraco-old/**/*"]
 }

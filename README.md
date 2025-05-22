@@ -1,122 +1,131 @@
-# Remote MCP Server on Cloudflare
+# Umbraco MCP Server
 
-![National Grid](Cover.png)
+![Happydance Labs](Cover.png)
 
-Let's get a remote MCP server up-and-running on Cloudflare Workers complete with OAuth login!
+A Model Context Protocol (MCP) server implementation for Umbraco CMS, allowing LLMs to access and manipulate Umbraco content through standardized interfaces.
 
-## Develop locally
+## Overview
+
+This repository provides a Model Context Protocol server that connects to Umbraco CMS, enabling AI models like Claude to:
+
+- Retrieve content from Umbraco
+- Execute operations against the Umbraco Management API
+- Access document types, media, and other Umbraco resources
+- Perform actions through standardized tool interfaces
+
+## Installation
 
 ```bash
-# clone the repository
-git clone https://github.com/cloudflare/ai.git
-# Or if using ssh:
-# git clone git@github.com:cloudflare/ai.git
+# Clone the repository
+git clone https://github.com/HappydanceLabs/umbraco-mcp-server.git
 
-# install dependencies
-cd ai
-# Note: using pnpm instead of just "npm"
-pnpm install
+# Navigate to the project directory
+cd umbraco-mcp-server
 
-# run locally
-npx nx dev remote-mcp-server
+# Install dependencies
+npm install
+
+# Generate Umbraco API types
+npm run generate:umbraco
+
+# Start the development server
+npm run dev
 ```
 
-You should be able to open [`http://localhost:8787/`](http://localhost:8787/) in your browser
+The server will be available at [http://localhost:8787/](http://localhost:8787/)
 
-## Connect the MCP inspector to your server
+## Connect the MCP Inspector
 
-To explore your new MCP api, you can use the [MCP Inspector](https://modelcontextprotocol.io/docs/tools/inspector).
+To explore the MCP API and test available resources and tools:
 
-- Start it with `npx @modelcontextprotocol/inspector`
-- [Within the inspector](http://localhost:5173), switch the Transport Type to `SSE` and enter `http://localhost:8787/sse` as the URL of the MCP server to connect to, and click "Connect"
-- You will navigate to a (mock) user/password login screen. Input any email and pass to login.
-- You should be redirected back to the MCP Inspector and you can now list and call any defined tools!
+1. Start the MCP Inspector:
+   ```bash
+   npm run mcp:inspector
+   ```
+   
+2. In the Inspector interface, switch the Transport Type to `SSE` and enter `http://localhost:8787/mcp` as the URL.
 
-<div align="center">
-  <img src="img/mcp-inspector-sse-config.png" alt="MCP Inspector with the above config" width="600"/>
-</div>
+3. Click "Connect" and follow any authentication prompts.
 
-<div align="center">
-  <img src="img/mcp-inspector-successful-tool-call.png" alt="MCP Inspector with after a tool call" width="600"/>
-</div>
+4. Once connected, you can list and call the available resources and tools.
 
-## Connect Claude Desktop to your local MCP server
+## Connect to Claude Desktop
 
-The MCP inspector is great, but we really want to connect this to Claude! Follow [Anthropic's Quickstart](https://modelcontextprotocol.io/quickstart/user) and within Claude Desktop go to Settings > Developer > Edit Config to find your configuration file.
+To use this MCP server with Claude:
 
-Open the file in your text editor and replace it with this configuration:
+1. Install Claude Desktop and follow [Anthropic's MCP Quickstart](https://modelcontextprotocol.io/quickstart/user)
+
+2. In Claude Desktop, go to Settings > Developer > Edit Config
+
+3. Replace the configuration with:
 
 ```json
 {
   "mcpServers": {
-    "math": {
+    "umbraco": {
       "command": "npx",
       "args": [
         "mcp-remote",
-        "http://localhost:8787/sse"
+        "http://localhost:8787/mcp"
       ]
     }
   }
 }
 ```
 
-This will run a local proxy and let Claude talk to your MCP server over HTTP
+4. Restart Claude and you'll be able to use the Umbraco tools directly from Claude.
 
-When you open Claude a browser window should open and allow you to login. You should see the tools available in the bottom right. Given the right prompt Claude should ask to call the tool.
+## Deployment
 
-<div align="center">
-  <img src="img/available-tools.png" alt="Clicking on the hammer icon shows a list of available tools" width="600"/>
-</div>
+1. Create a KV namespace for OAuth:
+   ```bash
+   npx wrangler kv namespace create OAUTH_KV
+   ```
 
-<div align="center">
-  <img src="img/claude-does-math-the-fancy-way.png" alt="Claude answers the prompt 'I seem to have lost my calculator and have run out of fingers. Could you use the math tool to add 23 and 19?' by invoking the MCP add tool" width="600"/>
-</div>
+2. Add the KV namespace ID to `wrangler.jsonc`
 
-## Deploy to Cloudflare
+3. Deploy to Cloudflare Workers:
+   ```bash
+   npm run deploy
+   ```
 
-1. `npx wrangler kv namespace create OAUTH_KV`
-2. Follow the guidance to add the kv namespace ID to `wrangler.jsonc`
-3. `npm run deploy`
+4. Update your Claude configuration to use your deployed URL:
+   ```json
+   {
+     "mcpServers": {
+       "umbraco": {
+         "command": "npx",
+         "args": [
+           "mcp-remote",
+           "https://your-worker-url.workers.dev/sse"
+         ]
+       }
+     }
+   }
+   ```
 
-## Call your newly deployed remote MCP server from a remote MCP client
+## Project Structure
 
-Just like you did above in "Develop locally", run the MCP inspector:
+- `/src/api`: Umbraco API clients and interfaces
+- `/src/resources`: MCP resource implementations for reading Umbraco data
+- `/src/tools`: MCP tool implementations for executing operations
+- `/src/helpers`: Utility functions and shared code
+- `/src/types`: TypeScript type definitions
 
-`npx @modelcontextprotocol/inspector@latest`
+## Development
 
-Then enter the `workers.dev` URL (ex: `worker-name.account-name.workers.dev/sse`) of your Worker in the inspector as the URL of the MCP server to connect to, and click "Connect".
+This project uses the [Model Context Protocol TypeScript SDK](https://github.com/modelcontextprotocol/typescript-sdk) and [Cloudflare Agents SDK](https://agents.cloudflare.com/) to implement resources and tools according to the MCP specification. Hosted and deployed on a Cloudflare Worker.
 
-You've now connected to your MCP server from a remote MCP client.
-
-## Connect Claude Desktop to your remote MCP server
-
-Update the Claude configuration file to point to your `workers.dev` URL (ex: `worker-name.account-name.workers.dev/sse`) and restart Claude 
-
-```json
-{
-  "mcpServers": {
-    "math": {
-      "command": "npx",
-      "args": [
-        "mcp-remote",
-        "https://worker-name.account-name.workers.dev/sse"
-      ]
-    }
-  }
-}
-```
+For more information on the MCP protocol, see the [official documentation](https://modelcontextprotocol.io/).
 
 ## Debugging
 
-Should anything go wrong it can be helpful to restart Claude, or to try connecting directly to your
-MCP server on the command line with the following command.
+If you encounter issues:
 
 ```bash
+# Test direct connection to the MCP server
 npx mcp-remote http://localhost:8787/sse
-```
 
-In some rare cases it may help to clear the files added to `~/.mcp-auth`
-
-```bash
+# Clear MCP authentication cache if needed
 rm -rf ~/.mcp-auth
 ```

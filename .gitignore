@@ -177,3 +177,4 @@ dist
 .dev.vars
 .wrangler/
 .mcp-auth/
+umbraco-old
