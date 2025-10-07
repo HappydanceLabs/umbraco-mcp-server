@@ -5,7 +5,7 @@ import { ToolFactory } from '@/tools'
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { McpAgent } from 'agents/mcp'
 
-export class HappyDanceUmbracoMCP extends McpAgent {
+export class HappyDanceUmbracoMCPV2 extends McpAgent {
 	server = new McpServer({
 		name: 'HappyDance-Umbraco-MCP',
 		version: '1.0.0'
@@ -60,7 +60,7 @@ export default {
 		}
 
 		if (url.pathname === '/sse') {
-			res = await HappyDanceUmbracoMCP.serve('/sse').fetch(request, env, ctx)
+			res = await HappyDanceUmbracoMCP.serveSSE('/sse').fetch(request, env, ctx)
 			return withCORSHeaders(res)
 		}
 

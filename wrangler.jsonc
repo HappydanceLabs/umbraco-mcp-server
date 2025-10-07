@@ -8,16 +8,18 @@
 	],
 	"migrations": [
 		{
-			"new_sqlite_classes": [
-				"HappyDanceUmbracoMCP"
-			],
-			"tag": "v1"
+			"tag": "v1",
+			"new_classes": ["HappyDanceUmbracoMCP"]
+		},
+		{
+			"tag": "v2",
+			"new_sqlite_classes": ["HappyDanceUmbracoMCPV2"]
 		}
 	],
 	"durable_objects": {
 		"bindings": [
 			{
-				"class_name": "HappyDanceUmbracoMCP",
+				"class_name": "HappyDanceUmbracoMCPV2",
 				"name": "MCP_OBJECT"
 			}
 		]
@@ -32,8 +34,8 @@
 		"enabled": true
 	},
 	"vars": {
-		"UMBRACO_BASE_URL": "https://happy-dance-umbraco.azurewebsites.net",
-		"UMBRACO_API_KEY": "1234567890",
-		"WAF_API_KEY": "1234567890"
+		"UMBRACO_BASE_URL": "https://nationalgrid.happydance.dev/umbraco/delivery/api/v2",
+		"UMBRACO_API_KEY": "d02f8508-034b-4be8-bf16-a2fefbcc36ed",
+		"WAF_API_KEY": "be019b5d-799f-4314-aa03-29c44d124695"
 	}
 }
