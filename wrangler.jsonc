@@ -8,16 +8,18 @@
 	],
 	"migrations": [
 		{
-			"new_sqlite_classes": [
-				"HappyDanceUmbracoMCP"
-			],
-			"tag": "v1"
+			"tag": "v1",
+			"new_classes": ["HappyDanceUmbracoMCP"]
+		},
+		{
+			"tag": "v2",
+			"new_sqlite_classes": ["HappyDanceUmbracoMCPV2"]
 		}
 	],
 	"durable_objects": {
 		"bindings": [
 			{
-				"class_name": "HappyDanceUmbracoMCP",
+				"class_name": "HappyDanceUmbracoMCPV2",
 				"name": "MCP_OBJECT"
 			}
 		]
