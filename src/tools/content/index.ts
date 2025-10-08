@@ -40,10 +40,17 @@ const contentParamsSchema = {
 	...expandFieldsSchema
 }
 
+const filterOnlySchema = {
+	filter: z
+		.array(z.string())
+		.optional()
+		.describe('Defines how to filter the fetched content items')
+}
+
 export const GetContentTool = CreateUmbracoTool(
 	'getContent',
 	'Fetch paginated content items from Umbraco with optional filtering and sorting',
-	contentParamsSchema,
+	expandFieldsSchema,
 	async model => {
 		const resource = await GetContentResource().handler(new URL('umbraco://content/'), model)
 		return {
@@ -128,7 +135,7 @@ export const GetContentItemByPathTool = CreateUmbracoTool(
 export const GetTeamsTool = CreateUmbracoTool(
 	'getTeams',
 	'Fetch a list of my teams pages and the content items within them',
-	contentParamsSchema,
+	filterOnlySchema,
 	async model => {
 		const resourceUriString = `umbraco://content/`
 		model.filter = ['contentType:team']
@@ -147,7 +154,7 @@ export const GetTeamsTool = CreateUmbracoTool(
 export const GetHomePageTool = CreateUmbracoTool(
 	'getHomePage',
 	'Fetch the home page content including all of the content blocks within it',
-	contentParamsSchema,
+	filterOnlySchema,
 	async model => {
 		const resourceUriString = `umbraco://content/`
 		model.filter = ['contentType:home']
@@ -166,7 +173,7 @@ export const GetHomePageTool = CreateUmbracoTool(
 export const GetBlogPostsTool = CreateUmbracoTool(
 	'getBlogPosts',
 	'Fetch the blog posts content including all of the content blocks within it',
-	contentParamsSchema,
+	filterOnlySchema,
 	async model => {
 		const resourceUriString = `umbraco://content/`
 		model.filter = ['contentType:blogPost']
@@ -185,7 +192,7 @@ export const GetBlogPostsTool = CreateUmbracoTool(
 export const GetLocationsTool = CreateUmbracoTool(
 	'getLocations',
 	'Fetch the locations content including all of the content blocks within it',
-	contentParamsSchema,
+	filterOnlySchema,
 	async model => {
 		const resourceUriString = `umbraco://content/`
 		model.filter = ['contentType:locationListing']
@@ -205,7 +212,7 @@ export const GetLocationsTool = CreateUmbracoTool(
 export const GetEventsTool = CreateUmbracoTool(
 	'getEvents',
 	'Fetch the events content including all of the content blocks within it',
-	contentParamsSchema,
+	filterOnlySchema,
 	async model => {
 		const resourceUriString = `umbraco://content/`
 		model.filter = ['contentType:eventListing']
@@ -226,7 +233,7 @@ export const GetEventsTool = CreateUmbracoTool(
 export const GetBenefitsTool = CreateUmbracoTool(
 	'getBenefits',
 	'Fetch the benefits content including all of the content blocks within it',
-	contentParamsSchema,
+	filterOnlySchema,
 	async model => {
 		const resourceUriString = `umbraco://content/`
 		model.filter = ['contentType:widgetIcons&filter=name:Benefits']
@@ -246,7 +253,7 @@ export const GetBenefitsTool = CreateUmbracoTool(
 export const GetHowWeHireTool = CreateUmbracoTool(
 	'getHowWeHire',
 	'Fetch the how we hire content including all of the content blocks within it',
-	contentParamsSchema,
+	filterOnlySchema,
 	async model => {
 		const resourceUriString = `umbraco://content/`
 		model.filter = ['contentType:widgetIcons&filter=name:Hire']
@@ -266,7 +273,7 @@ export const GetHowWeHireTool = CreateUmbracoTool(
 export const GetCultureTool = CreateUmbracoTool(
 	'getCulture',
 	'Fetch the culture content including all of the content blocks within it',
-	contentParamsSchema,
+	filterOnlySchema,
 	async model => {
 		const resourceUriString = `umbraco://content/`
 		model.filter = ['contentType:contentPage&filter=name:Culture']
