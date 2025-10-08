@@ -11,17 +11,13 @@ const expandFieldsSchema = {
 		.string()
 		.optional()
 		.describe('Properties that should be expanded in the response')
-		.default(
-			'properties[contentBlocks,metaTitle,metaKeywords,metaDescription,relatedBlogPosts]'
-		),
+		.default('properties[contentBlocks]'),
 
 	fields: z
 		.string()
 		.optional()
 		.describe('Explicitly defines which properties to include')
-		.default(
-			'properties[contentBlocks,metaTitle,metaKeywords,metaDescription,relatedBlogPosts]'
-		)
+		.default('properties[contentBlocks]')
 }
 
 const contentParamsSchema = {
@@ -192,7 +188,7 @@ export const GetLocationsTool = CreateUmbracoTool(
 	contentParamsSchema,
 	async model => {
 		const resourceUriString = `umbraco://content/`
-		model.filter = ['contentType:location']
+		model.filter = ['contentType:locationListing']
 		const resource = await GetContentResource().handler(new URL(resourceUriString), model)
 		return {
 			content: [
@@ -212,7 +208,7 @@ export const GetEventsTool = CreateUmbracoTool(
 	contentParamsSchema,
 	async model => {
 		const resourceUriString = `umbraco://content/`
-		model.filter = ['contentType:event']
+		model.filter = ['contentType:eventListing']
 		const resource = await GetContentResource().handler(new URL(resourceUriString), model)
 		return {
 			content: [
