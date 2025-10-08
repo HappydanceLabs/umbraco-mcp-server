@@ -14,6 +14,7 @@ const expandFieldsSchema = {
 		.default(
 			'properties[contentBlocks,metaTitle,metaKeywords,metaDescription,relatedBlogPosts]'
 		),
+
 	fields: z
 		.string()
 		.optional()
@@ -25,7 +26,10 @@ const expandFieldsSchema = {
 
 const contentParamsSchema = {
 	fetch: z.string().optional().describe('Specifies the content items to fetch'),
-	filter: z.string().optional().describe('Defines how to filter the fetched content items'),
+	filter: z
+		.array(z.string())
+		.optional()
+		.describe('Defines how to filter the fetched content items'),
 	sort: z.string().optional().describe('Sorting query string options for ordering results'),
 	skip: z
 		.number()
@@ -128,7 +132,7 @@ export const GetContentItemByPathTool = CreateUmbracoTool(
 export const GetTeamsTool = CreateUmbracoTool(
 	'getTeams',
 	'Fetch a list of my teams pages and the content items within them',
-	expandFieldsSchema,
+	contentParamsSchema,
 	async model => {
 		const resourceUriString = `umbraco://content/`
 		model.filter = ['contentType:team']
@@ -147,7 +151,7 @@ export const GetTeamsTool = CreateUmbracoTool(
 export const GetHomePageTool = CreateUmbracoTool(
 	'getHomePage',
 	'Fetch the home page content including all of the content blocks within it',
-	expandFieldsSchema,
+	contentParamsSchema,
 	async model => {
 		const resourceUriString = `umbraco://content/`
 		model.filter = ['contentType:home']
@@ -166,7 +170,7 @@ export const GetHomePageTool = CreateUmbracoTool(
 export const GetBlogPostsTool = CreateUmbracoTool(
 	'getBlogPosts',
 	'Fetch the blog posts content including all of the content blocks within it',
-	expandFieldsSchema,
+	contentParamsSchema,
 	async model => {
 		const resourceUriString = `umbraco://content/`
 		model.filter = ['contentType:blogPost']
@@ -185,7 +189,7 @@ export const GetBlogPostsTool = CreateUmbracoTool(
 export const GetLocationsTool = CreateUmbracoTool(
 	'getLocations',
 	'Fetch the locations content including all of the content blocks within it',
-	expandFieldsSchema,
+	contentParamsSchema,
 	async model => {
 		const resourceUriString = `umbraco://content/`
 		model.filter = ['contentType:location']
@@ -205,7 +209,7 @@ export const GetLocationsTool = CreateUmbracoTool(
 export const GetEventsTool = CreateUmbracoTool(
 	'getEvents',
 	'Fetch the events content including all of the content blocks within it',
-	expandFieldsSchema,
+	contentParamsSchema,
 	async model => {
 		const resourceUriString = `umbraco://content/`
 		model.filter = ['contentType:event']
@@ -226,7 +230,7 @@ export const GetEventsTool = CreateUmbracoTool(
 export const GetBenefitsTool = CreateUmbracoTool(
 	'getBenefits',
 	'Fetch the benefits content including all of the content blocks within it',
-	expandFieldsSchema,
+	contentParamsSchema,
 	async model => {
 		const resourceUriString = `umbraco://content/`
 		model.filter = ['contentType:widgetIcons&filter=name:Benefits']
@@ -246,7 +250,7 @@ export const GetBenefitsTool = CreateUmbracoTool(
 export const GetHowWeHireTool = CreateUmbracoTool(
 	'getHowWeHire',
 	'Fetch the how we hire content including all of the content blocks within it',
-	expandFieldsSchema,
+	contentParamsSchema,
 	async model => {
 		const resourceUriString = `umbraco://content/`
 		model.filter = ['contentType:widgetIcons&filter=name:Hire']
@@ -263,19 +267,39 @@ export const GetHowWeHireTool = CreateUmbracoTool(
 	}
 )
 
-// write a "write to umbraco tool", that simply returns a message "We have updated your content	"
-export const WriteToUmbracoTool = CreateUmbracoTool(
-	'saveContent',
-	'Save to Umbraco, publish changes in content',
-	{
-		content: z.string().describe('The content to save to Umbraco'),
-	},
+export const GetCultureTool = CreateUmbracoTool(
+	'getCulture',
+	'Fetch the culture content including all of the content blocks within it',
+	contentParamsSchema,
 	async model => {
+		const resourceUriString = `umbraco://content/`
+		model.filter = ['contentType:contentPage&filter=name:Culture']
+		const resource = await GetContentResource().handler(new URL(resourceUriString), model)
 		return {
-			content: [{ type: 'text', text: 'Content saved!', isError: false }]
+			content: [
+				{
+					type: 'text',
+					text: resource.contents[0].text as string,
+					mimeType: 'application/json'
+				}
+			]
 		}
 	}
 )
+
+// write a "write to umbraco tool", that simply returns a message "We have updated your content	"
+// export const WriteToUmbracoTool = CreateUmbracoTool(
+// 	'saveContent',
+// 	'Save to Umbraco, publish changes in content',
+// 	{
+// 		content: z.string().describe('The content to save to Umbraco')
+// 	},
+// 	async model => {
+// 		return {
+// 			content: [{ type: 'text', text: 'Content saved!', isError: false }]
+// 		}
+// 	}
+// )
 
 export const ContentTools = [
 	GetContentTool,
@@ -288,5 +312,6 @@ export const ContentTools = [
 	GetEventsTool,
 	GetBenefitsTool,
 	GetHowWeHireTool,
-	WriteToUmbracoTool
+	GetCultureTool
+	// WriteToUmbracoTool
 ]

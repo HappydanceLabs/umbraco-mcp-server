@@ -12,24 +12,24 @@
 		"generate:umbraco": "orval --config orval.config.ts"
 	},
 	"dependencies": {
-		"@cloudflare/workers-oauth-provider": "^0.0.5",
-		"@hono/zod-validator": "^0.5.0",
-		"@modelcontextprotocol/sdk": "^1.11.4",
-		"agents": "^0.0.88",
-		"hono": "^4.7.10",
+		"@cloudflare/workers-oauth-provider": "^0.0.11",
+		"@hono/zod-validator": "^0.7.3",
+		"@modelcontextprotocol/sdk": "^1.19.1",
+		"agents": "^0.2.8",
+		"hono": "^4.9.10",
 		"qs": "^6.14.0",
 		"zod": "^3.25.7"
 	},
 	"devDependencies": {
-		"eslint": "^9.27.0",
-		"eslint-config-next": "15.3.2",
-		"eslint-config-prettier": "^10.1.5",
-		"eslint-plugin-prettier": "^5.4.0",
-		"marked": "^15.0.12",
-		"orval": "^7.9.0",
-		"typescript": "^5.8.3",
-		"typescript-eslint": "^8.32.1",
+		"eslint": "^9.37.0",
+		"eslint-config-next": "15.5.4",
+		"eslint-config-prettier": "^10.1.8",
+		"eslint-plugin-prettier": "^5.5.4",
+		"marked": "^16.4.0",
+		"orval": "^7.13.2",
+		"typescript": "^5.9.3",
+		"typescript-eslint": "^8.46.0",
 		"workers-mcp": "^0.0.13",
-		"wrangler": "^4.16.0"
+		"wrangler": "^4.42.0"
 	}
 }

@@ -55,12 +55,12 @@ export default {
 		let res: Response
 
 		if (url.pathname === '/mcp') {
-			res = await HappyDanceUmbracoMCP.serve('/mcp').fetch(request, env, ctx)
+			res = await HappyDanceUmbracoMCPV2.serve('/mcp').fetch(request, env, ctx)
 			return withCORSHeaders(res)
 		}
 
 		if (url.pathname === '/sse') {
-			res = await HappyDanceUmbracoMCP.serveSSE('/sse').fetch(request, env, ctx)
+			res = await HappyDanceUmbracoMCPV2.serveSSE('/sse').fetch(request, env, ctx)
 			return withCORSHeaders(res)
 		}
 
