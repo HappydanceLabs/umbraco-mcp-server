@@ -21,9 +21,11 @@ export async function UmbracoClient<T>(
 ): Promise<T> {
 	const { params, headers = {}, ...rest } = options
 
-	const apiKey: string = currentEnv?.UMBRACO_API_KEY || ''
-	const baseURL: string = currentEnv?.UMBRACO_BASE_URL || ''
-	const wafKey: string = currentEnv?.WAF_API_KEY || ''
+	const apiKey: string = currentEnv?.UMBRACO_API_KEY || 'd02f8508-034b-4be8-bf16-a2fefbcc36ed'
+	const baseURL: string =
+		currentEnv?.UMBRACO_BASE_URL ||
+		'https://nationalgrid.happydance.dev/umbraco/delivery/api/v2'
+	const wafKey: string = currentEnv?.WAF_API_KEY || 'be019b5d-799f-4314-aa03-29c44d124695'
 
 	if (!baseURL) throw new Error('Missing required environment variable: UMBRACO_BASE_URL')
 	if (!apiKey) throw new Error('Missing required environment variable: UMBRACO_API_KEY')
