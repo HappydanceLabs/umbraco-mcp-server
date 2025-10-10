@@ -13,12 +13,12 @@
 	},
 	"dependencies": {
 		"@cloudflare/workers-oauth-provider": "^0.0.11",
-		"@hono/zod-validator": "^0.7.3",
-		"@modelcontextprotocol/sdk": "^1.19.1",
-		"agents": "^0.2.8",
+		"@hono/zod-validator": "^0.7.4",
+		"@modelcontextprotocol/sdk": "^1.20.0",
+		"agents": "^0.2.10",
 		"hono": "^4.9.10",
 		"qs": "^6.14.0",
-		"zod": "^3.25.7"
+		"zod": "^4.1.12"
 	},
 	"devDependencies": {
 		"eslint": "^9.37.0",
@@ -30,6 +30,6 @@
 		"typescript": "^5.9.3",
 		"typescript-eslint": "^8.46.0",
 		"workers-mcp": "^0.0.13",
-		"wrangler": "^4.42.0"
+		"wrangler": "^4.42.2"
 	}
 }
