@@ -63,9 +63,7 @@ export default {
 			return withCORSHeaders(appResponse)
 		}
 
-		if (
-			url.pathname === '/mcp' //|| url.pathname === '/sse' || url.pathname === '/sse/message'
-		) {
+		if (url.pathname === '/mcp') {
 			try {
 				let res: Response
 				// Validate authentication before processing MCP requests (except preflight handled above)
@@ -73,17 +71,7 @@ export default {
 
 				bindUmbracoEnv(env)
 
-				// if (url.pathname === '/sse' || url.pathname === '/sse/message') {
-				// 	res = await HappyDanceUmbracoMCPV2.serveSSE('/sse').fetch(request, env, ctx)
-				// 	return withCORSHeaders(res)
-				// }
-
-				if (url.pathname === '/mcp') {
-					res = await HappyDanceUmbracoMCPV2.serve('/mcp').fetch(request, env, ctx)
-					return withCORSHeaders(res)
-				}
-
-				res = await app.fetch(request, env, ctx)
+				res = await HappyDanceUmbracoMCPV2.serve('/mcp').fetch(request, env, ctx)
 				return withCORSHeaders(res)
 			} catch (error) {
 				if (error instanceof AuthenticationError) {
