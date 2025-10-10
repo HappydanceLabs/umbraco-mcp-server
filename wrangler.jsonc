@@ -34,7 +34,7 @@
 	},
 	"vars": {
 		"MCP_AUTH_UUID": "d0deb1f3f8d4552a8b79439c697463aacae0ed0047d1d55d3a7fef5455c89409",
-		"UMBRACO_BASE_URL": "https://nationalgrid.happydance.website/umbraco/delivery/api/v2",
+		"UMBRACO_BASE_URL": "https://nationalgrid.happydance.website",
 		"UMBRACO_API_KEY": "d02f8508-034b-4be8-bf16-a2fefbcc36ed",
 		"WAF_API_KEY": "be019b5d-799f-4314-aa03-29c44d124695"
 	}
