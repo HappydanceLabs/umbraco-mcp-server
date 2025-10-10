@@ -229,23 +229,38 @@ export const GetEventsTool = CreateUmbracoTool(
 	}
 )
 
-// benefits
-export const GetBenefitsTool = CreateUmbracoTool(
-	'getBenefits',
-	'Fetch the benefits content including all of the content blocks within it',
-	filterOnlySchema,
+export const GetEarlyCareersTool = CreateUmbracoTool(
+	'getEarlyCareers',
+	'Get the early careers content item for anything apprenticeships, work experience, internships, etc.',
+	expandFieldsSchema,
 	async model => {
-		const resourceUriString = `umbraco://content/`
-		model.filter = ['contentType:widgetIcons&filter=name:Benefits']
-		const resource = await GetContentResource().handler(new URL(resourceUriString), model)
-		return {
-			content: [
+		try {
+			const resource = await GetContentItemByIdResource().handler(
+				new URL('umbraco://content/item/'),
 				{
-					type: 'text',
-					text: resource.contents[0].text as string,
-					mimeType: 'application/json'
-				}
-			]
+					expand: model.expand,
+					fields: model.fields
+				},
+				'67566237-a125-4c1f-8443-780a6d1b7426'
+			)
+			return {
+				content: [
+					{
+						type: 'text',
+						text: resource.contents[0].text as string,
+						mimeType: 'application/json'
+					}
+				]
+			}
+		} catch (error) {
+			console.error('Error in GetEarlyCareersTool:', error)
+			const errorMessage =
+				error instanceof Error
+					? error.message
+					: 'Unknown error occurred while fetching content item [GetEarlyCareersTool].'
+			return {
+				content: [{ type: 'text', text: errorMessage, isError: true }]
+			}
 		}
 	}
 )
@@ -290,6 +305,26 @@ export const GetCultureTool = CreateUmbracoTool(
 	}
 )
 
+export const GetBenefitsTool = CreateUmbracoTool(
+	'getBenefits',
+	'Fetch the benefits content including all of the content blocks within it',
+	filterOnlySchema,
+	async model => {
+		const resourceUriString = `umbraco://content/`
+		model.filter = ['contentType:widgetIcons&filter=name:Benefits']
+		const resource = await GetContentResource().handler(new URL(resourceUriString), model)
+		return {
+			content: [
+				{
+					type: 'text',
+					text: resource.contents[0].text as string,
+					mimeType: 'application/json'
+				}
+			]
+		}
+	}
+)
+
 // write a "write to umbraco tool", that simply returns a message "We have updated your content	"
 // export const WriteToUmbracoTool = CreateUmbracoTool(
 // 	'saveContent',
@@ -314,6 +349,7 @@ export const ContentTools = [
 	GetLocationsTool,
 	GetEventsTool,
 	GetBenefitsTool,
+	GetEarlyCareersTool,
 	GetHowWeHireTool,
 	GetCultureTool
 	// WriteToUmbracoTool
